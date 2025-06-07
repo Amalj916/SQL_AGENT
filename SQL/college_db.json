@@ -1,0 +1,72 @@
+{
+    "students": {
+      "columns": {
+        "student_id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "name": "VARCHAR(100) NOT NULL",
+        "email": "VARCHAR(100) UNIQUE NOT NULL",
+        "age": "INT CHECK (age BETWEEN 18 AND 30)",
+        "gender": "ENUM('Male', 'Female', 'Other')",
+        "department_id": "INT FOREIGN KEY REFERENCES departments(department_id) ON DELETE SET NULL",
+        "enrollment_date": "DATE DEFAULT (CURRENT_DATE)"
+      }
+    },
+    "teachers": {
+      "columns": {
+        "teacher_id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "name": "VARCHAR(100) NOT NULL",
+        "email": "VARCHAR(100) UNIQUE NOT NULL",
+        "department_id": "INT FOREIGN KEY REFERENCES departments(department_id) ON DELETE SET NULL",
+        "salary": "DECIMAL(10,2)",
+        "hire_date": "DATE DEFAULT (CURRENT_DATE)"
+      }
+    },
+    "non_teaching_staff": {
+      "columns": {
+        "staff_id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "name": "VARCHAR(100) NOT NULL",
+        "role": "VARCHAR(50)",
+        "salary": "DECIMAL(10,2)",
+        "hire_date": "DATE DEFAULT (CURRENT_DATE)"
+      }
+    },
+    "departments": {
+      "columns": {
+        "department_id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "department_name": "VARCHAR(100) UNIQUE NOT NULL"
+      }
+    },
+    "courses": {
+      "columns": {
+        "course_id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "course_name": "VARCHAR(100) NOT NULL",
+        "teacher_id": "INT FOREIGN KEY REFERENCES teachers(teacher_id) ON DELETE SET NULL",
+        "credits": "INT CHECK (credits BETWEEN 1 AND 6)"
+      }
+    },
+    "enrollments": {
+      "columns": {
+        "enrollment_id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "student_id": "INT FOREIGN KEY REFERENCES students(student_id) ON DELETE CASCADE",
+        "course_id": "INT FOREIGN KEY REFERENCES courses(course_id) ON DELETE CASCADE",
+        "enrollment_date": "DATE DEFAULT (CURRENT_DATE)"
+      }
+    },
+    "office_staff": {
+      "columns": {
+        "office_id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "name": "VARCHAR(100) NOT NULL",
+        "role": "VARCHAR(50) NOT NULL",
+        "salary": "DECIMAL(10,2)",
+        "hire_date": "DATE DEFAULT (CURRENT_DATE)"
+      }
+    },
+    "payments": {
+      "columns": {
+        "payment_id": "INT PRIMARY KEY AUTO_INCREMENT",
+        "student_id": "INT FOREIGN KEY REFERENCES students(student_id) ON DELETE CASCADE",
+        "amount": "DECIMAL(10,2) NOT NULL",
+        "payment_date": "DATE DEFAULT (CURRENT_DATE)"
+      }
+    }
+  }
+  
